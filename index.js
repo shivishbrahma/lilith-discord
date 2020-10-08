@@ -8,6 +8,7 @@ const client = new discord.Client()
 const prefix = process.env.PREFIX
 
 const { getPlugin, plugins } = require('./pluginManager')
+const sysCmd = require('./plugins/sysCmd')
 
 const logger = winston.createLogger({
   transports: [
@@ -35,7 +36,7 @@ client.on('message', (msg) => {
   // Command Not Present In List
   if (!plugins.hasOwnProperty(msg.cmd)) return
 
-  //   console.log(msg.guild.channels.cache.size)
+  // console.log(msg.author.presence.member.roles.cache)
   msg.channel.send(getPlugin(msg))
 })
 
