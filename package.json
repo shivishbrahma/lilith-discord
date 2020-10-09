@@ -1,21 +1,25 @@
 {
-  "name": "lilith",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon test.js"
-  },
-  "keywords": [],
-  "author": "Purbayan Chowdhury<pur.cho.99@gmail.com>",
-  "license": "ISC",
-  "dependencies": {
-    "chalk": "^4.1.0",
-    "dateformat": "^3.0.3",
-    "discord.js": "^12.3.1",
-    "discord.js-commando": "github:discordjs/Commando",
-    "dotenv": "^8.2.0",
-    "winston": "^3.3.3"
-  }
+	"name": "lilith",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"pstart": "pm2 start index.js",
+		"pdev": "pm2 start index.js --watch"
+	},
+	"keywords": [],
+	"author": "Purbayan Chowdhury<pur.cho.99@gmail.com>",
+	"license": "ISC",
+	"dependencies": {
+		"chalk": "^4.1.0",
+		"cheerio": "^1.0.0-rc.3",
+		"dateformat": "^3.0.3",
+		"discord.js": "^12.3.1",
+		"discord.js-commando": "github:discordjs/Commando",
+		"dotenv": "^8.2.0",
+		"moment": "^2.29.1",
+		"node-fetch": "^2.6.1",
+		"winston": "^3.3.3"
+	}
 }

@@ -11,6 +11,7 @@ const prefix = process.env.PREFIX;
 
 const { getPlugin, plugins } = require("./pluginManager");
 const sysCmd = require("./plugins/sysCmd");
+const { cli } = require("winston/lib/winston/config");
 
 const logger = winston.createLogger({
 	transports: [
@@ -23,7 +24,7 @@ const logger = winston.createLogger({
 });
 
 client.on("ready", () =>
-	logger.log("info", chalk.greenBright("\u{1F916} Lilith is online!"))
+	logger.log("info", chalk.greenBright("🤖 Lilith is online!"))
 );
 client.on("debug", (m) => logger.log("debug", chalk.blue(m)));
 client.on("warn", (m) => logger.log("warn", chalk.yellow(m)));
@@ -41,7 +42,8 @@ client.on("message", (msg) => {
 	if (!plugins.hasOwnProperty(msg.cmd)) return;
 
 	// console.log(msg.author.presence.member.roles.cache)
-	msg.channel.send(getPlugin(msg));
+	let reply = getPlugin(msg);
+	if (reply != "") msg.channel.send(reply);
 });
 
 // Initialize bot by connecting to the server
