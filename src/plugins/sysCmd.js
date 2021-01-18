@@ -134,7 +134,13 @@ sysCmd.getUserTypes = function (users) {
  *
  * @param {*} msg
  */
-sysCmd.userInfo = async function (msg) {
+sysCmd.userInfo = async function (msg, args) {
+	if (args[0] == 'help') {
+		msg.channel.send(
+			embedMsg.getHelpMessage('user info', 'userinfo (blank)|<user-mention>')
+		);
+		return;
+	}
 	let member = msg.member;
 	if (!!msg.mentions.members.first()) member = msg.mentions.members.first();
 	embedMsg.color = 'info';
@@ -186,7 +192,16 @@ sysCmd.userInfo = async function (msg) {
 	return embedMsg.getEmbedMessage();
 };
 
-sysCmd.channelInfo = function (msg) {
+sysCmd.channelInfo = function (msg, args) {
+	if (args[0] == 'help') {
+		msg.channel.send(
+			embedMsg.getHelpMessage(
+				'channel info',
+				'channelinfo (blank)|<channel-mention>'
+			)
+		);
+		return;
+	}
 	let channel = msg.channel;
 	if (!!msg.mentions.channels.first()) channel = msg.mentions.channels.first();
 	embedMsg.color = 'info';
@@ -218,7 +233,16 @@ sysCmd.channelInfo = function (msg) {
  * Server Options
  */
 
-sysCmd.serverInfo = function (msg) {
+sysCmd.serverInfo = function (msg, args) {
+	if (args[0] == 'help') {
+		msg.channel.send(
+			embedMsg.getHelpMessage(
+				'server info',
+				'serverinfo (blank)|<server-mention>'
+			)
+		);
+		return;
+	}
 	let server = msg.guild;
 	let fields = [];
 	let roles = sysCmd.getSysRoles(server);

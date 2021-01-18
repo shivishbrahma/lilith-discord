@@ -17,3 +17,5 @@ Modules
   - [x] User Info
   - [x] Server Info
   - [x] Channel Info
+
+Adding help and docs

@@ -79,6 +79,7 @@ async function showPics(msg, args) {
 		msg.channel.send(durl);
 		if (selected.count == i) break;
 	}
+	msg.channel.send('Powered by MetArtVip.com');
 }
 
 async function getModels() {
@@ -154,8 +155,14 @@ async function showGalleries(msg, args) {
 }
 
 metart = function (msg, args) {
-	if (!msg.channel.nsfw) return 'This is not a nsfw channel';
-	if (!args.length) return 'Provide the model name';
+	if (!msg.channel.nsfw) {
+		msg.reply('This is not a nsfw channel');
+		return;
+	}
+	if (!args.length) {
+		msg.reply('Provide the model name');
+		return;
+	}
 	if (args[0] == 'list') showModels(msg, args);
 	else if (args[1] == 'list') showGalleries(msg, args);
 	else showPics(msg, args);

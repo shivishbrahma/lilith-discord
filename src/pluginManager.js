@@ -2,6 +2,8 @@ const cmds = {
 	userinfo: require('./plugins/sysCmd').userInfo,
 	channelinfo: require('./plugins/sysCmd').channelInfo,
 	serverinfo: require('./plugins/sysCmd').serverInfo,
+	clear: require('./plugins/clear').clear,
+	help: require('./plugins/help'),
 	metart: require('./plugins/metart.premium').metart,
 };
 

@@ -24,7 +24,7 @@ const discord = require('discord.js');
 */
 
 const embedMsg = {
-	color: '',
+	color: 'RANDOM',
 	title: '',
 	thumbnail: '',
 	url: '',
@@ -66,6 +66,18 @@ embedMsg.getEmbedMessage = function () {
 	exampleEmbed.footer = this.footer;
 	exampleEmbed.setTimestamp();
 	return exampleEmbed;
+};
+
+embedMsg.getErrorMessage = function () {};
+
+embedMsg.getHelpMessage = function (cmd, usage) {
+	const prefix = process.env.PREFIX || 'li!';
+	return new discord.MessageEmbed()
+		.setColor(this.colors['pink'])
+		.addField(
+			`${this.stringHandler.titleCase(cmd)} Command`,
+			`Usage: ${prefix}${usage}`
+		);
 };
 
 embedMsg.stringHandler = {};

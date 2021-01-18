@@ -27,7 +27,9 @@ client.on('debug', (m) => logger.log('debug', chalk.blue(m)));
 client.on('warn', (m) => logger.log('warn', chalk.yellow(m)));
 client.on('error', (m) => logger.log('error', chalk.redBright(m)));
 
-process.on('uncaughtException', (error) => logger.log('error', error));
+process.on('uncaughtException', (error) =>
+	logger.log('error', chalk.redBright(error))
+);
 
 // Event listener when a user sends a message in the chat.
 client.on('message', commandHandler);
