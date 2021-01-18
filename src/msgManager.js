@@ -72,12 +72,14 @@ embedMsg.getErrorMessage = function () {};
 
 embedMsg.getHelpMessage = function (cmd, usage) {
 	const prefix = process.env.PREFIX || 'li!';
-	return new discord.MessageEmbed()
-		.setColor(this.colors['pink'])
-		.addField(
-			`${this.stringHandler.titleCase(cmd)} Command`,
-			`Usage: ${prefix}${usage}`
-		);
+	const helpEmbed = new discord.MessageEmbed().setColor(this.colors['pink']);
+	helpEmbed.fields = [
+		{
+			name: `${this.stringHandler.titleCase(cmd)} Command`,
+			value: `Usage: ${prefix}${usage}`,
+		},
+	];
+	return helpEmbed;
 };
 
 embedMsg.stringHandler = {};
