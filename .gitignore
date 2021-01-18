@@ -117,5 +117,5 @@ dist
 
 
 # optional
-*.premium.js
+# *.premium.js
 log
