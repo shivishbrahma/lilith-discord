@@ -1,7 +1,7 @@
 {
 	"name": "lilith",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A Discord Bot for doing many things",
 	"main": "index.js",
 	"scripts": {
 		"start": "node src/index.js",
@@ -10,7 +10,10 @@
 		"pdev": "pm2 start src/index.js --watch"
 	},
 	"keywords": [],
-	"author": "Purbayan Chowdhury<pur.cho.99@gmail.com>",
+	"authors": {
+		"name": "Purbayan Chowdhury",
+		"email": "pur.cho.99@gmail.com"
+	},
 	"license": "ISC",
 	"dependencies": {
 		"chalk": "^4.1.0",
@@ -25,5 +28,8 @@
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.7"
+	},
+	"engines": {
+		"node": "10.x"
 	}
 }
