@@ -118,3 +118,4 @@ dist
 
 # optional
 *.premium.js
+log
