@@ -2,7 +2,7 @@
 
 A discord bot using discord js
 
-To do
+## To do
 
 - [ ] Wikipedia Scraper
 - [ ] Wolfram Scraper
@@ -14,8 +14,12 @@ To do
 Modules
 
 - [ ] System
+
   - [x] User Info
   - [x] Server Info
   - [x] Channel Info
 
-Adding help and docs
+- [x] Help
+- [x] Clear
+
+### Adding help and docs
