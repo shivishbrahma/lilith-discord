@@ -1,39 +1,39 @@
 // Run dotenv
-require("dotenv").config();
+require('dotenv').config();
 
 // Import libraries
-const discord = require("discord.js");
-const winston = require("winston");
-const chalk = require("chalk");
-const commando = require("discord.js-commando");
+const discord = require('discord.js');
+const winston = require('winston');
+const chalk = require('chalk');
+const commando = require('discord.js-commando');
 const client = new discord.Client();
 const prefix = process.env.PREFIX;
 
-const { getPlugin, plugins } = require("./pluginManager");
-const sysCmd = require("./plugins/sysCmd");
-const { cli } = require("winston/lib/winston/config");
+const { getPlugin, plugins } = require('./pluginManager');
+const sysCmd = require('./plugins/sysCmd');
+const { cli } = require('winston/lib/winston/config');
 
 const logger = winston.createLogger({
 	transports: [
 		new winston.transports.Console(),
-		new winston.transports.File({ filename: "log" }),
+		new winston.transports.File({ filename: 'log' }),
 	],
 	format: winston.format.printf(
 		(log) => `[${log.level.toUpperCase()}] - ${log.message}`
 	),
 });
 
-client.on("ready", () =>
-	logger.log("info", chalk.greenBright("🤖 Lilith is online!"))
+client.on('ready', () =>
+	logger.log('info', chalk.greenBright('👼 Lilith is online!'))
 );
-client.on("debug", (m) => logger.log("debug", chalk.blue(m)));
-client.on("warn", (m) => logger.log("warn", chalk.yellow(m)));
-client.on("error", (m) => logger.log("error", chalk.redBright(m)));
+client.on('debug', (m) => logger.log('debug', chalk.blue(m)));
+client.on('warn', (m) => logger.log('warn', chalk.yellow(m)));
+client.on('error', (m) => logger.log('error', chalk.redBright(m)));
 
-process.on("uncaughtException", (error) => logger.log("error", error));
+process.on('uncaughtException', (error) => logger.log('error', error));
 
 // Event listener when a user sends a message in the chat.
-client.on("message", (msg) => {
+client.on('message', (msg) => {
 	if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
 	msg.args = msg.content.slice(prefix.length).trim().split(/ +/);
@@ -43,7 +43,7 @@ client.on("message", (msg) => {
 
 	// console.log(msg.author.presence.member.roles.cache)
 	let reply = getPlugin(msg);
-	if (reply != "") msg.channel.send(reply);
+	if (reply != '') msg.channel.send(reply);
 });
 
 // Initialize bot by connecting to the server
