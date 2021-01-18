@@ -15,7 +15,11 @@ module.exports = async function (msg) {
 	let reply = '';
 
 	if (Object.keys(cmds).includes(cmd)) {
-		reply = await cmds[cmd](msg, args);
+		try {
+			reply = await cmds[cmd](msg, args);
+		} catch (error) {
+			console.error(error);
+		}
 	}
 	if (reply && reply !== '') msg.channel.send(reply);
 };
