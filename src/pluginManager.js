@@ -1,12 +1,19 @@
-const plugins = {
-	userinfo: require("./plugins/sysCmd").userInfo,
-	channelinfo: require("./plugins/sysCmd").channelInfo,
-	serverinfo: require("./plugins/sysCmd").serverInfo,
-	metart: require("./plugins/metart.premium").metart,
+const cmds = {
+	userinfo: require('./plugins/sysCmd').userInfo,
+	channelinfo: require('./plugins/sysCmd').channelInfo,
+	serverinfo: require('./plugins/sysCmd').serverInfo,
+	metart: require('./plugins/metart.premium').metart,
 };
 
-function getPlugin(msg) {
-	return plugins[msg.cmd](msg);
-}
+module.exports = async function (msg) {
+	const prefix = process.env.PREFIX || 'li!';
+	if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+	const args = msg.content.slice(prefix.length).trim().split(/ +/);
+	const cmd = args.shift().toLowerCase();
+	let reply = '';
 
-module.exports = { getPlugin, plugins };
+	if (Object.keys(cmds).includes(cmd)) {
+		reply = await cmds[cmd](msg, args);
+	}
+	if (reply && reply !== '') msg.channel.send(reply);
+};

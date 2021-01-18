@@ -1,6 +1,6 @@
-const dateFormat = require("dateformat");
-const moment = require("moment");
-const embedMsg = require("../msgManager");
+// const dateFormat = require("dateformat");
+const moment = require('moment');
+const embedMsg = require('../msgManager');
 const { bold, inline, italic, titleCase, objectPrint } = embedMsg.stringHandler;
 const sysCmd = {};
 
@@ -23,7 +23,7 @@ sysCmd.getName = function (entity) {
 sysCmd.getCreationDate = function (entity) {
 	const { createdAt, createdTimestamp } = entity;
 	return [
-		moment(createdTimestamp).format("ddd, MMM D, YYYY h:mm A"),
+		moment(createdTimestamp).format('ddd, MMM D, YYYY h:mm A'),
 		moment(createdTimestamp).fromNow(),
 	];
 };
@@ -33,46 +33,46 @@ sysCmd.getCreationDate = function (entity) {
  */
 
 sysCmd.getUsername = function (user) {
-	return user.username;
+	return user.username || '';
 };
 
-sysCmd.getNickname = function (user) {
-	return user.presence.member.nickname;
+sysCmd.getNickname = function (member) {
+	return member.nickname || '';
 };
 
-sysCmd.getJoinedDate = function (user) {
-	const { joinedAt, joinedTimestamp } = user.presence.member;
+sysCmd.getJoinedDate = function (member) {
+	const { joinedTimestamp } = member;
 	return [
-		moment(joinedTimestamp).format("ddd, MMM D, YYYY h:mm A"),
+		moment(joinedTimestamp).format('ddd, MMM D, YYYY h:mm A'),
 		moment(joinedTimestamp).fromNow(),
 	];
 };
 
 sysCmd.getBotStat = function (user) {
-	return user.bot ? "Yes" : "No";
+	return user.bot ? 'Yes' : 'No';
 };
 
-sysCmd.getHighestRole = function (user) {
-	return user.presence.member.roles.highest.name;
+sysCmd.getHighestRole = function (member) {
+	return member.roles.highest.name || '';
 };
 
-sysCmd.getRoles = function (user) {
-	let roles = user.presence.member.roles.cache,
+sysCmd.getRoles = function (member) {
+	let roles = member.roles.cache || [],
 		r = [];
 	for (let role of roles) {
-		if (role[1].name !== "@everyone") r.push(role[1].name);
+		if (role[1].name !== '@everyone') r.push(role[1].name);
 	}
 	return r;
 };
 
-sysCmd.getPresenceStatus = function (user) {
+sysCmd.getPresenceStatus = function (member) {
 	const psMap = {
-		online: "Online",
-		idle: "Idle",
-		offline: "Offline",
-		dnd: "Do Not Disturb",
+		online: 'Online',
+		idle: 'Idle',
+		offline: 'Offline',
+		dnd: 'Do Not Disturb',
 	};
-	return psMap[user.presence.status];
+	return psMap[member.presence.status];
 };
 
 /**
@@ -80,11 +80,11 @@ sysCmd.getPresenceStatus = function (user) {
  */
 
 sysCmd.getTopic = function (channel) {
-	return !!channel.topic ? `${channel.topic}` : "No description";
+	return !!channel.topic ? `${channel.topic}` : 'No description';
 };
 
 sysCmd.getNSFW = function (channel) {
-	return channel.nsfw ? "Yes" : "No";
+	return channel.nsfw ? 'Yes' : 'No';
 };
 
 /**
@@ -92,24 +92,24 @@ sysCmd.getNSFW = function (channel) {
  */
 sysCmd.getExplicitContentFilter = function (server) {
 	const ecfMap = {
-		DISABLED: "Disabled",
-		MEMBERS_WITHOUT_ROLES: "No role",
-		ALL_MEMBERS: "All",
+		DISABLED: 'Disabled',
+		MEMBERS_WITHOUT_ROLES: 'No role',
+		ALL_MEMBERS: 'All',
 	};
 	return ecfMap[server.explicitContentFilter];
 };
 
 sysCmd.getSysRoles = function (server) {
-	const roles = server.roles.cache,
-		r = [];
+	const roles = server.roles.cache;
+	r = [];
 	for (let role of roles) {
-		if (role[1].name !== "@everyone") r.push(role[1].name);
+		if (role[1].name !== '@everyone') r.push(role[1].name);
 	}
 	return r;
 };
 
 sysCmd.getVerificationLevel = function (server) {
-	return titleCase(server.verificationLevel.replace("_", " "));
+	return titleCase(server.verificationLevel.replace('_', ' '));
 };
 
 sysCmd.getChannelTypes = function (channels) {
@@ -122,10 +122,10 @@ sysCmd.getChannelTypes = function (channels) {
 };
 
 sysCmd.getUserTypes = function (users) {
-	r = { "cached human": 0, bots: 0 };
+	r = { 'cached human': 0, bots: 0 };
 	for (let user of users) {
 		if (user[1].user.bot) r.bots++;
-		else r["cached human"]++;
+		else r['cached human']++;
 	}
 	return r;
 };
@@ -134,48 +134,51 @@ sysCmd.getUserTypes = function (users) {
  *
  * @param {*} msg
  */
-sysCmd.userInfo = function (msg) {
-	let user = msg.author;
-	if (!!msg.mentions.users.first()) user = msg.mentions.users.first();
-	embedMsg.color = "info";
+sysCmd.userInfo = async function (msg) {
+	let member = msg.member;
+	if (!!msg.mentions.members.first()) member = msg.mentions.members.first();
+	embedMsg.color = 'info';
 	let fields = [];
-	let roles = sysCmd.getRoles(user);
-	roles.forEach((e, i) => {
-		roles[i] = inline(e);
-	});
 
+	const user = member.user;
 	let user_info = `
-    🔹 ID: ${bold(sysCmd.getId(user))}
-    🔹 Name: ${inline(sysCmd.getUsername(user))}
-	🔹 Created: 
+	🔹 ID: ${bold(sysCmd.getId(user))}
+	🔹 Name: ${inline(sysCmd.getUsername(user))}
+	🔹 Created:
 	${inline(sysCmd.getCreationDate(user)[0])} (${bold(
 		sysCmd.getCreationDate(user)[1]
 	)})
-    🔹 Status: ${bold(sysCmd.getPresenceStatus(user))}
-    🔹 Is Bot: ${bold(sysCmd.getBotStat(user))}
-    `;
-	let member_info = `
-    ${
-			!!sysCmd.getNickname(user)
-				? `🔹 Nickname: ${bold(sysCmd.getNickname(user))}`
-				: ""
-		}
-	🔹 Joined Server: 
-	${inline(sysCmd.getJoinedDate(user)[0])} (${bold(
-		sysCmd.getJoinedDate(user)[1]
-	)})
-    🔹 Highest Role: ${bold(sysCmd.getHighestRole(user))}
-    🔹 Roles[${bold(roles.length)}]:
-    ${roles.join(" | ")}
-    `;
+	🔹 Status: ${bold(sysCmd.getPresenceStatus(user))}
+	🔹 Is Bot: ${bold(sysCmd.getBotStat(user))}
+	`;
 	fields.push({
-		name: "User Information",
+		name: 'User Information',
 		value: user_info,
 	});
+
+	let roles = sysCmd.getRoles(member);
+	roles.forEach((e, i) => {
+		roles[i] = inline(e);
+	});
+	let member_info = `
+	${
+		!!sysCmd.getNickname(member)
+			? `🔹 Nickname: ${bold(sysCmd.getNickname(member))}`
+			: ''
+	}
+	🔹 Joined Server:
+	${inline(sysCmd.getJoinedDate(member)[0])} (${bold(
+		sysCmd.getJoinedDate(member)[1]
+	)})
+	🔹 Highest Role: ${bold(sysCmd.getHighestRole(member))}
+	🔹 Roles[${bold(roles.length)}]:
+	${roles.join(' | ')}
+	`;
 	fields.push({
-		name: "Member Information",
+		name: 'Member Information',
 		value: member_info,
 	});
+
 	embedMsg.fields = fields;
 	embedMsg.thumbnail = user.avatarURL();
 	embedMsg.footer.text = msg.author.tag;
@@ -186,7 +189,7 @@ sysCmd.userInfo = function (msg) {
 sysCmd.channelInfo = function (msg) {
 	let channel = msg.channel;
 	if (!!msg.mentions.channels.first()) channel = msg.mentions.channels.first();
-	embedMsg.color = "info";
+	embedMsg.color = 'info';
 	let fields = [];
 	let channel_info = `
     🔹 ID: ${bold(sysCmd.getId(channel))}
@@ -201,7 +204,7 @@ sysCmd.channelInfo = function (msg) {
     🔹 Is NSFW: ${bold(sysCmd.getNSFW(channel))}
     `;
 	fields.push({
-		name: "Channel Information",
+		name: 'Channel Information',
 		value: channel_info,
 	});
 	embedMsg.fields = fields;
@@ -224,7 +227,7 @@ sysCmd.serverInfo = function (msg) {
 	});
 	let chTypes = sysCmd.getChannelTypes(server.channels.cache),
 		uTypes = sysCmd.getUserTypes(server.members.cache);
-	embedMsg.color = "info";
+	embedMsg.color = 'info';
 	let server_info = `
     🔹 ID: ${bold(sysCmd.getId(server))}
     🔹 Name: ${inline(sysCmd.getName(server))}
@@ -245,10 +248,10 @@ sysCmd.serverInfo = function (msg) {
   🔹 Verification: ${bold(sysCmd.getVerificationLevel(server))}
 	🔹 Explicit Filter: ${bold(sysCmd.getExplicitContentFilter(server))}
   🔹 Roles: [${bold(roles.length)}]
-  ${roles.join(" | ")}
+  ${roles.join(' | ')}
     `;
 	fields.push({
-		name: "Server Information",
+		name: 'Server Information',
 		value: server_info,
 	});
 	embedMsg.fields = fields;

@@ -1,4 +1,4 @@
-const discord = require("discord.js");
+const discord = require('discord.js');
 
 /*
   .setColor('#0099ff')
@@ -24,34 +24,34 @@ const discord = require("discord.js");
 */
 
 const embedMsg = {
-	color: "",
-	title: "",
-	thumbnail: "",
-	url: "",
+	color: '',
+	title: '',
+	thumbnail: '',
+	url: '',
 	author: {
-		name: "Lilith",
-		icon_url: "https://i.imgur.com/nEddK08.jpg",
-		url: "https://shivishbrahma.github.io",
+		name: 'Lilith',
+		icon_url: 'https://i.imgur.com/nEddK08.jpg',
+		url: 'https://shivishbrahma.github.io',
 	},
 	fields: [],
 	footer: {
-		text: "",
-		icon_url: "",
+		text: '',
+		icon_url: '',
 	},
 };
 
 embedMsg.colors = {
-	info: "#086788",
-	fact: "#07a0c3",
-	success: "#7fb800",
-	danger: "#dd1c1a",
-	warning: "#f0c808",
-	light: "#fff1d0",
-	blue: "",
-	red: "",
-	pink: "",
-	yellow: "",
-	green: "",
+	info: '#086788',
+	fact: '#07a0c3',
+	success: '#7fb800',
+	danger: '#dd1c1a',
+	warning: '#f0c808',
+	light: '#f7f3e3',
+	blue: '#00a8e8',
+	red: '#e54b4b',
+	pink: '#ff47da',
+	yellow: '#f6ae2d',
+	green: '#285943',
 };
 
 embedMsg.getEmbedMessage = function () {
@@ -72,10 +72,10 @@ embedMsg.stringHandler = {};
 
 embedMsg.stringHandler.titleCase = function (str) {
 	str = str.toLowerCase();
-	str = str.split(" ");
+	str = str.split(' ');
 	for (let i = 0; i < str.length; i++)
 		str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-	return str.join(" ");
+	return str.join(' ');
 };
 
 embedMsg.stringHandler.sentenceCase = function (str) {
@@ -124,7 +124,7 @@ embedMsg.stringHandler.objectPrint = function (coll) {
 			)}`
 		);
 	}
-	return r.join(", ");
+	return r.join(', ');
 };
 
 module.exports = embedMsg;

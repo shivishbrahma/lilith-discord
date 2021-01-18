@@ -1,50 +1,21 @@
-// Run dotenv
-require('dotenv').config();
+const express = require('express');
+require('./bot');
 
-// Import libraries
-const discord = require('discord.js');
-const winston = require('winston');
-const chalk = require('chalk');
-const commando = require('discord.js-commando');
-const client = new discord.Client();
-const prefix = process.env.PREFIX;
+// create express app
+const app = express();
 
-const { getPlugin, plugins } = require('./pluginManager');
-const sysCmd = require('./plugins/sysCmd');
-const { cli } = require('winston/lib/winston/config');
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
-const logger = winston.createLogger({
-	transports: [
-		new winston.transports.Console(),
-		new winston.transports.File({ filename: 'log' }),
-	],
-	format: winston.format.printf(
-		(log) => `[${log.level.toUpperCase()}] - ${log.message}`
-	),
+// parse requests of content-type - application/json
+app.use(express.json());
+
+app.get('/', (req, res) => {
+	res.json({ message: 'Welcome to Lilith API', version: '0.0.1' });
 });
 
-client.on('ready', () =>
-	logger.log('info', chalk.greenBright('👼 Lilith is online!'))
-);
-client.on('debug', (m) => logger.log('debug', chalk.blue(m)));
-client.on('warn', (m) => logger.log('warn', chalk.yellow(m)));
-client.on('error', (m) => logger.log('error', chalk.redBright(m)));
+const PORT = process.env.PORT || 4000;
 
-process.on('uncaughtException', (error) => logger.log('error', error));
-
-// Event listener when a user sends a message in the chat.
-client.on('message', (msg) => {
-	if (!msg.content.startsWith(prefix) || msg.author.bot) return;
-
-	msg.args = msg.content.slice(prefix.length).trim().split(/ +/);
-	msg.cmd = msg.args.shift().toLowerCase();
-	// Command Not Present In List
-	if (!plugins.hasOwnProperty(msg.cmd)) return;
-
-	// console.log(msg.author.presence.member.roles.cache)
-	let reply = getPlugin(msg);
-	if (reply != '') msg.channel.send(reply);
+app.listen(PORT, () => {
+	console.log(`Server is listening on port ${PORT}`);
 });
-
-// Initialize bot by connecting to the server
-client.login(process.env.DISCORD_TOKEN);

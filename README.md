@@ -7,6 +7,9 @@ To do
 - [ ] Wikipedia Scraper
 - [ ] Wolfram Scraper
 - [ ] Today in History
+- [ ] Quotes
+  - [ ] Dev Quotes
+  - [ ] Love Quotes
 
 Modules
 
