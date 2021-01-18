@@ -14,36 +14,36 @@ const sysCmd = require("./plugins/sysCmd");
 const { cli } = require("winston/lib/winston/config");
 
 const logger = winston.createLogger({
-	transports: [
-		new winston.transports.Console(),
-		new winston.transports.File({ filename: "log" }),
-	],
-	format: winston.format.printf(
-		(log) => `[${log.level.toUpperCase()}] - ${log.message}`
-	),
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: "log" }),
+    ],
+    format: winston.format.printf(
+        (log) => `[${log.level.toUpperCase()}] - ${log.message}`
+    ),
 });
 
 client.on("ready", () =>
-	logger.log("info", chalk.greenBright("🤖 Lilith is online!"))
+    logger.log("info", chalk.greenBright("🤖 Lilith is online!"))
 );
 client.on("debug", (m) => logger.log("debug", chalk.blue(m)));
 client.on("warn", (m) => logger.log("warn", chalk.yellow(m)));
-client.on("error", (m) => logger.log("error", chalk.redBright(m)));
+client.on("error", (m) => logger.log("error", chalk.red(m)));
 
 process.on("uncaughtException", (error) => logger.log("error", error));
 
 // Event listener when a user sends a message in the chat.
 client.on("message", (msg) => {
-	if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+    if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
-	msg.args = msg.content.slice(prefix.length).trim().split(/ +/);
-	msg.cmd = msg.args.shift().toLowerCase();
-	// Command Not Present In List
-	if (!plugins.hasOwnProperty(msg.cmd)) return;
+    msg.args = msg.content.slice(prefix.length).trim().split(/ +/);
+    msg.cmd = msg.args.shift().toLowerCase();
+    // Command Not Present In List
+    if (!plugins.hasOwnProperty(msg.cmd)) return;
 
-	// console.log(msg.author.presence.member.roles.cache)
-	let reply = getPlugin(msg);
-	if (reply != "") msg.channel.send(reply);
+    // console.log(msg.author.presence.member.roles.cache)
+    let reply = getPlugin(msg);
+    if (reply != "") msg.channel.send(reply);
 });
 
 // Initialize bot by connecting to the server

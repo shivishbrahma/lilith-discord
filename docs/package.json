@@ -1,0 +1,19 @@
+{
+  "name": "Lilith",
+  "version": "0.0.1",
+  "description": "A Discord Bot for doing many things",
+  "main": "index.js",
+  "authors": {
+    "name": "Purbayan Chowdhury",
+    "email": "pur.cho.99@gmail.com"
+  },
+  "repository": "lilith/Lilith",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
