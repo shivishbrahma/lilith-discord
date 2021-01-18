@@ -4,9 +4,10 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "node index.js",
-		"pstart": "pm2 start index.js",
-		"pdev": "pm2 start index.js --watch"
+		"start": "node src/index.js",
+		"dev": "nodemon src/index.js",
+		"pstart": "pm2 start src/index.js",
+		"pdev": "pm2 start src/index.js --watch"
 	},
 	"keywords": [],
 	"author": "Purbayan Chowdhury<pur.cho.99@gmail.com>",
@@ -21,5 +22,8 @@
 		"moment": "^2.29.1",
 		"node-fetch": "^2.6.1",
 		"winston": "^3.3.3"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.7"
 	}
 }
