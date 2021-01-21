@@ -2,7 +2,7 @@ const url = require('url');
 const querystring = require('querystring');
 const { Router, response } = require('express');
 const fetch = require('node-fetch');
-const { renderCard } = require('../helpers/card');
+const { getCard } = require('../helpers/card');
 
 const router = Router();
 
@@ -42,14 +42,27 @@ router.get('/game-of-thornes', (req, res) => {
 		.catch((e) => console.error(e));
 });
 
-router.get('/image', (req, res) => {
-	let query = querystring.parse(url.parse(req.originalUrl).query);
-	console.log(query.quote);
+router.get('/image/random', (req, res) => {
+	fetch('http://localhost:6245/api/quotes/v1')
+		.then((response) => response.json())
+		.then((data) => {
+			res.redirect(
+				`../image?theme=dracula&title=${encodeURI(
+					data.text
+				)}&author=${encodeURI(data.author)}`
+			);
+		})
+		.catch((err) => console.error(err));
+});
+
+router.get('/image', async (req, res) => {
+	const parsedQuery = querystring.parse(url.parse(req.originalUrl).query);
+	const theme = parsedQuery.theme || 'default',
+		title = parsedQuery.title || 'Title',
+		author = parsedQuery.author || 'Author';
+	const card = await getCard(title, author, theme);
 	res.set('Content-Type', 'image/svg+xml');
-	// res.json({
-	// 	message: 'Welcome to Quotes API',
-	// });
-	res.send(renderCard());
+	res.send(card);
 });
 
 router.get('/', (req, res) => {
