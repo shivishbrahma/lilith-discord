@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "node src/index.js",
+		"bot": "node src/bot.js",
 		"dev": "nodemon src/index.js",
 		"pstart": "pm2 start src/index.js",
 		"pdev": "pm2 start src/index.js --watch"
@@ -18,9 +19,9 @@
 	"dependencies": {
 		"chalk": "^4.1.0",
 		"cheerio": "^1.0.0-rc.3",
+		"countdown": "^2.6.0",
 		"dateformat": "^3.0.3",
 		"discord.js": "^12.3.1",
-		"discord.js-commando": "github:discordjs/Commando",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
 		"moment": "^2.29.1",

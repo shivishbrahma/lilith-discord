@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
-const embedMsg = require('../msgManager');
+const embedMsg = require('../helpers/msgManager');
 const { bold, inline, italic, titleCase, objectPrint } = embedMsg.stringHandler;
 
 const header = {
