@@ -43,7 +43,7 @@ router.get('/game-of-thornes', (req, res) => {
 });
 
 router.get('/image/random', (req, res) => {
-	fetch('http://localhost:6245/api/quotes/v1')
+	fetch('http://lilith-discord-angel.herokuapp.com/api/quotes/v1')
 		.then((response) => response.json())
 		.then((data) => {
 			res.redirect(
