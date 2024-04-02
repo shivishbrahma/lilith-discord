@@ -20,7 +20,7 @@
 		"discord.js-commando": "github:discordjs/Commando",
 		"dotenv": "^16.4.5",
 		"moment": "^2.29.1",
-		"node-fetch": "^2.6.1",
+		"node-fetch": "^3.3.2",
 		"winston": "^3.3.3"
 	},
 	"devDependencies": {
