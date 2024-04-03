@@ -1,29 +1,31 @@
 {
-	"name": "lilith",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"start": "node src/index.js",
-		"dev": "nodemon src/index.js",
-		"pstart": "pm2 start src/index.js",
-		"pdev": "pm2 start src/index.js --watch"
-	},
-	"keywords": [],
-	"author": "Purbayan Chowdhury<pur.cho.99@gmail.com>",
-	"license": "ISC",
-	"dependencies": {
-		"chalk": "^5.3.0",
-		"cheerio": "^1.0.0-rc.3",
-		"dateformat": "^5.0.3",
-		"discord.js": "^12.3.1",
-		"discord.js-commando": "github:discordjs/Commando",
-		"dotenv": "^16.4.5",
-		"moment": "^2.29.1",
-		"node-fetch": "^3.3.2",
-		"winston": "^3.3.3"
-	},
-	"devDependencies": {
-		"nodemon": "^2.0.7"
-	}
+    "name": "lilith",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "_moduleAliases": {
+        "@": "src"
+    },
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node src/index.js",
+        "lint": "eslint src/*.js",
+        "pstart": "pm2 start src/index.js",
+        "pdev": "pm2 start src/index.js --watch"
+    },
+    "keywords": [],
+    "author": "Purbayan Chowdhury<pur.cho.99@gmail.com>",
+    "license": "ISC",
+    "dependencies": {
+        "chalk": "^5.3.0",
+        "discord.js": "^14.14.1",
+        "dotenv": "^16.4.5",
+        "moment": "^2.30.1",
+        "winston": "^3.13.0"
+    },
+    "devDependencies": {
+        "eslint": "^8.57.0",
+        "nodemon": "^3.1.0"
+    }
 }

@@ -119,3 +119,4 @@ dist
 # optional
 *.premium.js
 package-lock.json
+log

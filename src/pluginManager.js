@@ -1,12 +1,10 @@
-const plugins = {
-	userinfo: require("./plugins/sysCmd").userInfo,
-	channelinfo: require("./plugins/sysCmd").channelInfo,
-	serverinfo: require("./plugins/sysCmd").serverInfo,
-	metart: require("./plugins/metart.premium").metart,
+export const plugins = {
+    userinfo: import("./plugins/sysCmd.js").userInfo,
+    channelinfo: import("./plugins/sysCmd.js").channelInfo,
+    serverinfo: import("./plugins/sysCmd.js").serverInfo
+    // metart: import("./plugins/metart.premium").metart,
 };
 
-function getPlugin(msg) {
-	return plugins[msg.cmd](msg);
+export function getPlugin(msg) {
+    return plugins[msg.cmd](msg);
 }
-
-module.exports = { getPlugin, plugins };

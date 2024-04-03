@@ -1,4 +1,4 @@
-const discord = require("discord.js");
+import discord from "discord.js";
 
 /*
   .setColor('#0099ff')
@@ -24,107 +24,102 @@ const discord = require("discord.js");
 */
 
 const embedMsg = {
-	color: "",
-	title: "",
-	thumbnail: "",
-	url: "",
-	author: {
-		name: "Lilith",
-		icon_url: "https://i.imgur.com/nEddK08.jpg",
-		url: "https://shivishbrahma.github.io",
-	},
-	fields: [],
-	footer: {
-		text: "",
-		icon_url: "",
-	},
+    color: "",
+    title: "",
+    thumbnail: "",
+    url: "",
+    author: {
+        name: "Lilith",
+        icon_url: "https://i.imgur.com/ipNlitj.jpeg",
+        url: "https://shivishbrahma.github.io"
+    },
+    fields: [],
+    footer: {
+        text: "",
+        icon_url: ""
+    }
 };
 
 embedMsg.colors = {
-	info: "#086788",
-	fact: "#07a0c3",
-	success: "#7fb800",
-	danger: "#dd1c1a",
-	warning: "#f0c808",
-	light: "#fff1d0",
-	blue: "",
-	red: "",
-	pink: "",
-	yellow: "",
-	green: "",
+    info: "#086788",
+    fact: "#07a0c3",
+    success: "#7fb800",
+    danger: "#dd1c1a",
+    warning: "#f0c808",
+    light: "#fff1d0",
+    blue: "",
+    red: "",
+    pink: "",
+    yellow: "",
+    green: ""
 };
 
 embedMsg.getEmbedMessage = function () {
-	exampleEmbed = new discord.MessageEmbed()
-		.setColor(this.colors[this.color])
-		.setTitle(this.title)
-		.setURL(this.url)
-		.setThumbnail(this.thumbnail);
+    exampleEmbed = new discord.MessageEmbed()
+        .setColor(this.colors[this.color])
+        .setTitle(this.title)
+        .setURL(this.url)
+        .setThumbnail(this.thumbnail);
 
-	exampleEmbed.fields = this.fields;
-	exampleEmbed.author = this.author;
-	exampleEmbed.footer = this.footer;
-	exampleEmbed.setTimestamp();
-	return exampleEmbed;
+    exampleEmbed.fields = this.fields;
+    exampleEmbed.author = this.author;
+    exampleEmbed.footer = this.footer;
+    exampleEmbed.setTimestamp();
+    return exampleEmbed;
 };
 
 embedMsg.stringHandler = {};
 
 embedMsg.stringHandler.titleCase = function (str) {
-	str = str.toLowerCase();
-	str = str.split(" ");
-	for (let i = 0; i < str.length; i++)
-		str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-	return str.join(" ");
+    str = str.toLowerCase();
+    str = str.split(" ");
+    for (let i = 0; i < str.length; i++) str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+    return str.join(" ");
 };
 
 embedMsg.stringHandler.sentenceCase = function (str) {
-	str = str.toLowerCase();
-	return str.charAt(0).toUpperCase() + str.slice(1);
+    str = str.toLowerCase();
+    return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 embedMsg.stringHandler.bold = function (str) {
-	return `**${str}**`;
+    return `**${str}**`;
 };
 
 embedMsg.stringHandler.italic = function (str) {
-	return `*${str}*`;
+    return `*${str}*`;
 };
 
 embedMsg.stringHandler.underline = function (str) {
-	return `__${str}__`;
+    return `__${str}__`;
 };
 
 embedMsg.stringHandler.strikethrough = function (str) {
-	return `~~${str}~~`;
+    return `~~${str}~~`;
 };
 
 embedMsg.stringHandler.inline = function (str) {
-	return `\`${str}\``;
+    return `\`${str}\``;
 };
 
 embedMsg.stringHandler.spoiler = function (str) {
-	return `||${str}||`;
+    return `||${str}||`;
 };
 
 embedMsg.stringHandler.quote = function (str) {
-	return `>${str}`;
+    return `>${str}`;
 };
 
 embedMsg.stringHandler.quoteblock = function (str) {
-	return `>>>${str}`;
+    return `>>>${str}`;
 };
 
 embedMsg.stringHandler.objectPrint = function (coll) {
-	r = [];
-	for (let i in coll) {
-		r.push(
-			`${embedMsg.stringHandler.bold(coll[i])} ${embedMsg.stringHandler.italic(
-				i
-			)}`
-		);
-	}
-	return r.join(", ");
+    r = [];
+    for (let i in coll) {
+        r.push(`${embedMsg.stringHandler.bold(coll[i])} ${embedMsg.stringHandler.italic(i)}`);
+    }
+    return r.join(", ");
 };
 
-module.exports = embedMsg;
+export default embedMsg;
