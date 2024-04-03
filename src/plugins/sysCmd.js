@@ -1,6 +1,6 @@
 // import dateFormat from "dateformat";
-import moment from "moment";
-import embedMsg from "../manager/msgManager.js";
+const moment = require("moment");
+const embedMsg = require("../manager/msgManager.js");
 const { bold, inline, italic, titleCase, objectPrint } = embedMsg.stringHandler;
 const sysCmd = {};
 
@@ -247,4 +247,4 @@ sysCmd.serverInfo = function (msg) {
     return embedMsg.getEmbedMessage();
 };
 
-export default sysCmd;
+module.exports = sysCmd;

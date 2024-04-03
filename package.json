@@ -3,13 +3,9 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
-    "type": "module",
-    "_moduleAliases": {
-        "@": "src"
-    },
     "scripts": {
         "start": "node src/index.js",
-        "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node src/index.js",
+        "dev": "nodemon src/index.js",
         "lint": "eslint src/*.js",
         "pstart": "pm2 start src/index.js",
         "pdev": "pm2 start src/index.js --watch"
@@ -18,7 +14,7 @@
     "author": "Purbayan Chowdhury<pur.cho.99@gmail.com>",
     "license": "ISC",
     "dependencies": {
-        "chalk": "^5.3.0",
+        "chalk": "^4.1.2",
         "discord.js": "^14.14.1",
         "dotenv": "^16.4.5",
         "moment": "^2.30.1",

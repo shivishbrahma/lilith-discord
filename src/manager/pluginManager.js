@@ -1,10 +1,12 @@
-export const plugins = {
-    userinfo: import("../plugins/sysCmd.js").userInfo,
+const plugins = {
+    // userinfo: import("../plugins/sysCmd.js").userInfo,
+    userinfo: require("../plugins/sysCmd.js").userinfo,
     channelinfo: import("../plugins/sysCmd.js").channelInfo,
     serverinfo: import("../plugins/sysCmd.js").serverInfo
-    // metart: import("./plugins/metart.premium").metart,
 };
 
-export function getPlugin(msg) {
+function getPlugin(msg) {
     return plugins[msg.cmd](msg);
 }
+
+module.exports = { plugins, getPlugin };

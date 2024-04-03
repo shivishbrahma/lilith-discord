@@ -1,4 +1,4 @@
-import discord from "discord.js";
+const discord = require("discord.js");
 
 /*
   .setColor('#0099ff')
@@ -122,4 +122,5 @@ embedMsg.stringHandler.objectPrint = function (coll) {
     return r.join(", ");
 };
 
-export default embedMsg;
+// export default embedMsg;
+module.exports = embedMsg;
