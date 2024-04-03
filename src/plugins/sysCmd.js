@@ -1,6 +1,6 @@
 // import dateFormat from "dateformat";
 import moment from "moment";
-import embedMsg from "../msgManager.js";
+import embedMsg from "../manager/msgManager.js";
 const { bold, inline, italic, titleCase, objectPrint } = embedMsg.stringHandler;
 const sysCmd = {};
 

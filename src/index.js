@@ -6,7 +6,7 @@ import { Client, Events, GatewayIntentBits } from "discord.js";
 import winston from "winston";
 // import comando from 'discord.js-commando';
 
-import { getPlugin, plugins } from "./pluginManager.js";
+// import { getPlugin, plugins } from "./manager/pluginManager.js";
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const prefix = process.env.PREFIX;
